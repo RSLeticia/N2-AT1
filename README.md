@@ -12,7 +12,6 @@ A solução busca transformar um arquivo bruto e desorganizado de leituras senso
 
 
 ESPECIFICAÇÃO DOS PROGRAMAS
-
 É indicado que o programa seja utilizado na seguinte ordem: Programa 3 - Programa 1 - Programa 2.
 
 PROGRAMA 1 - organizador_arquivos
