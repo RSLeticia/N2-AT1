@@ -1,18 +1,24 @@
 **OBJETIVOS DA SOLUÇÃO**
----
+
 O objetivo principal desta solução é simular, organizar e permitir a consulta eficiente de dados sensoriais em um ambiente industrial inteligente, por meio do desenvolvimento de três programas integrados escritos em linguagem C. Esses programas têm como finalidade:
 
-Gerar automaticamente dados simulados de sensores com valores coerentes aos seus respectivos tipos (inteiro, booleano, ponto flutuante e string), associados a timestamps únicos dentro de um intervalo de tempo definido.
+Gerar automaticamente dados simulados de sensores com valores consistentes aos seus respectivos tipos (inteiro, booleano, ponto flutuante e string), associados a timestamps únicos dentro de um intervalo de tempo definido, usando o algoritmo Fisher–Yates Shuffle para garantir unicidade e aleatoriedade dos timestamps.
 
 Processar e estruturar os dados gerados, organizando-os por tipo de sensor e ordenando as leituras cronologicamente. Cada sensor é tratado de forma independente, com suas leituras salvas em arquivos separados.
 
-Permitir consultas rápidas por timestamp, retornando ao usuário a leitura registrada mais próxima de um instante de tempo informado, por meio de busca binária aplicada sobre os dados organizados.
+Permitir consultas rápidas por carimbo de data/hora, retornando ao usuário a leitura registrada mais próxima de um instante de tempo informado, por meio de busca binária adaptada para encontrar a leitura mais próxima, mesmo que o timestamp exato não exista.
 
 A solução busca transformar um arquivo bruto e desorganizado de leituras sensoriais em um sistema estruturado, confiável e eficiente para análise e tomada de decisão em tempo real ou posterior.
+
+---
+---
 
 **ESPECIFICAÇÃO DOS PROGRAMAS**
 
 **É indicado que o programa seja utilizado na seguinte ordem:** Programa 3 - Programa 1 - Programa 2.
+
+---
+---
 
 **PROGRAMA 1 - organizador_arquivos**
 
@@ -24,17 +30,15 @@ Este programa tem como finalidade ler o arquivo gerado pelo programa 3 - gerador
 
 **Algoritmo de ordenação utilizado:**
 
-O programa usa quicksort **(qsort da biblioteca padrão <stdlib.h>)** com uma função personalizada para comparar timestamps em ordem crescente.
+O programa usa quicksort **(qsort da biblioteca padrão <stdlib.h>)** com uma função personalizada para comparar timestamps em ordem decrescente.
 
 **Estrutura do código e principais funções implementadas:**
 
-**detectar_tipo_valor():** Identifica se o valor é int, bool, float ou string.
+**detectar_tipo_valor():** Identifica se o valor é int, bool, float ou string usando **strtol**, **strtof** e comparação literal para booleanos.
 
-**buscar_sensor() / adicionar_sensor():** Gerencia sensores únicos com alocação dinâmica.
+**adicionar_leitura():** Insere leituras dinamicamente com realocação **(realloc)** se necessário para suportar crescimento.
 
-**adicionar_leitura():** Insere leituras dinamicamente com realocação se necessário.
-
-**comparar_leitura():** Função de comparação para qsort(), baseada em timestamp.
+**comparar_leitura():** Função de comparação para qsort(), baseada em timestamp em ordem decrescente.
 
 **gravar_arquivo_sensor** Cria um arquivo para cada sensor, gravando os dados ordenadamente.
 
@@ -42,6 +46,8 @@ O programa usa quicksort **(qsort da biblioteca padrão <stdlib.h>)** com uma fu
 
 Criar um arquivo separado para cada sensor , com o nome <nome_sensor>.txt.
 
+---
+---
 
 **PROGRAMA 2 - consultar_instante**
 
@@ -57,11 +63,11 @@ Neste programa o usuário poderá consultar a leitura mais próxima de um instan
 
 Não é feita ordenação, pois os arquivos de sensores já vêm ordenados do organizador_arquivos.
 
-A busca usa algoritmo de **busca binária** adaptado para encontrar o timestamp mais próximo.
+A busca usa algoritmo de **busca binária** adaptado para encontrar o timestamp mais próximo, não necessariamente exato.
 
 **Estrutura do código e principais funções implementadas:**
 
-**converte_para_timestamp():** Converte string de data/hora para time_t.
+**converte_para_timestamp():** Converte string de dados/hora para time_t usando **sscanf** e validação completa com **mktime().**
 
 **Struct SensorReading:** Armazena timestamp, nome do sensor e valor.
 
@@ -73,6 +79,8 @@ A busca usa algoritmo de **busca binária** adaptado para encontrar o timestamp 
 
 Irá imprimir no terminal: O timestamp, o nome do sensor e o valor da leitura.
 
+---
+---
 
 **PROGRAMA 3 - gerador_amostras**
 
@@ -90,9 +98,7 @@ Os timestamps não são ordenados globalmente, mas são embaralhados com **Fishe
 
 **Estrutura do código e principais funções implementadas:**
 
-**gerar_timestamps_unicos():**
-
-Gera valores únicos dentro do intervalo usando shuffle.
+**gerar_timestamps_unicos():** Gera valores únicos dentro do intervalo usando shuffle.
 
 **Struct Sensor:** Contém nome e tipo do sensor (enum TipoSensor).
 
@@ -114,9 +120,12 @@ Gera um arquivo (dados.txt) contendo todas as leituras.
 
 <timestamp> <tipo_sensor> <valor>
 
+---
+---
+
 **PROBLEMAS ENCONTRADOS E SOLUÇÕES ADOTADAS**
 
-**Arquivo de entrada com dados desordenados:** Utilização de qsort para ordenar as leituras de cada sensor por timestamp.
+**Arquivo de entrada com dados desordenados:** Utilização de qsort para ordenar as leituras de cada sensor por timestamp em ordem decrescente.
 
 **Timestamps duplicados ou fora do intervalo durante a geração:** Implementação do algoritmo Fisher–Yates Shuffle para garantir unicidade e aleatoriedade dos timestamps.
 
@@ -136,6 +145,6 @@ Gera um arquivo (dados.txt) contendo todas as leituras.
 
 **Strings aleatórias ilegíveis ou inválidas:** Geração controlada de strings com letras minúsculas e tamanho entre 5 e 16 caracteres.
 
-*Código com manipulação de tipos diferentes em uma única estrutura: Uso de union dentro da struct Leitura para armazenar valores de tipos distintos.
+**Código com manipulação de tipos diferentes em uma única estrutura:** Uso de union dentro da struct Leitura para armazenar valores de tipos distintos.
 
 **Dificuldade de leitura dos resultados no terminal:** Uso de strftime() para formatar o timestamp de forma legível ao usuário.
