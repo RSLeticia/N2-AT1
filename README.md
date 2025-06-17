@@ -1,5 +1,5 @@
 **OBJETIVOS DA SOLUÇÃO**
-
+---
 O objetivo principal desta solução é simular, organizar e permitir a consulta eficiente de dados sensoriais em um ambiente industrial inteligente, por meio do desenvolvimento de três programas integrados escritos em linguagem C. Esses programas têm como finalidade:
 
 Gerar automaticamente dados simulados de sensores com valores coerentes aos seus respectivos tipos (inteiro, booleano, ponto flutuante e string), associados a timestamps únicos dentro de um intervalo de tempo definido.
