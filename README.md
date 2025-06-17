@@ -55,7 +55,7 @@ Neste programa o usuário poderá consultar a leitura mais próxima de um instan
 
 **Entrada:**
 
-**Serão dois argumentos na linha de comando:** o nome do sensor(ex:TEXTO) e a data/hora(“20/02/2002 00:00:00”).
+**Serão dois argumentos na linha de comando:** o nome do sensor **(ex:TEXTO)** e a data/hora(“20/02/2002 00:00:00”).
 
 **Ex:** ./consultar_instante BINARIO “03/01/2005 00:00:20”
 
