@@ -26,7 +26,7 @@ Este programa tem como finalidade ler o arquivo gerado pelo programa 3 - gerador
 
 **Entrada:**
 
-**Argumento na linha de comando:** ./organizador_arquivos dados.txt.
+**Argumento na linha de comando: ./organizador_arquivos dados.txt.**
 
 **Algoritmo de ordenação utilizado:**
 
@@ -57,7 +57,7 @@ Neste programa o usuário poderá consultar a leitura mais próxima de um instan
 
 **Serão dois argumentos na linha de comando:** o nome do sensor **(ex:TEXTO)** e a data/hora(“20/02/2002 00:00:00”).
 
-**Ex:** ./consultar_instante BINARIO “03/01/2005 00:00:20”
+**Ex: ./consultar_instante BINARIO “03/01/2005 00:00:20”**
 
 **Algoritmo de ordenação utilizado:**
 
@@ -90,7 +90,7 @@ O programa vai simular a coleta de dados de sensores ao longo de um intervalo de
 
 Serão dois argumentos na linha de comando: data e hora inicial e data e hora final.
 
-**Ex:** ./gerador_amostras “20/01/2001 00:00:00” “10/04/2002 00:00:00”.
+**Ex: ./gerador_amostras “20/01/2001 00:00:00” “10/04/2002 00:00:00”.**
 
 **Algoritmo de ordenação utilizado:**
 
